@@ -61,7 +61,7 @@ class MakeCrudCommand extends Command
 
         $needs_controller = $this->hasNoOptions() || $this->option('all')  || $this->option('controller') || $this->option('api');
         $needs_views = $this->hasNoOptions() || (!$this->option('api') && ($this->option('all') || $this->option('views')));
-        $needs_routes = $this->hasNoOptions() || $this->option('all') || $this->option('resource') || $this->option('api');
+        $needs_routes = $this->hasNoOptions() || $this->option('all') || $this->option('api');
 
 
         // # Model 
