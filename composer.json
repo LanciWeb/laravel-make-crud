@@ -1,0 +1,31 @@
+{
+	"name": "lanciweb/laravel-make-crud",
+	"description": "A Laravel Package that allows creation of Model, Migration, Seeder, Views, Routes and resource controller for CRUD operations.",
+	"type": "laravel-package",
+	"require-dev": {
+		"orchestra/testbench": "^8.0"
+	},
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"LanciWeb\\LaravelMakeCrud\\": "src/",
+			"LanciWeb\\LaravelMakeCrud\\Commands\\": "src/Commands/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Marco Lancellotti",
+			"email": "lancellotti.marco@yahoo.it"
+		}
+	],
+	"require": {
+		"lanciweb/laravel-make-view": "^1.2"
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"LanciWeb\\LaravelMakeCrud\\LaravelMakeCrudServiceProvider"
+			]
+		}
+	}
+}
