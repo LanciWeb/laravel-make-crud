@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-
+use Doctrine\Inflector\InflectorFactory;
 
 class MakeCrudCommand extends Command
 {
@@ -102,13 +102,14 @@ class MakeCrudCommand extends Command
         $this->model_class = $model_class;
         $this->model_name = array_pop($elements);
 
-        $this->plural_form = $this->setPluralForm();
+        $this->setPluralForm();
     }
 
     public function setPluralForm()
     {
-        $word = $this->model_class;
-        return  Str::endsWith($word, 'y') ? Str::replace('y', 'ies', $word) : $word . 's';
+        $inflector = InflectorFactory::create()->build();
+
+        $this->plural_form =  $inflector->pluralize($this->model_class);
     }
 
 
