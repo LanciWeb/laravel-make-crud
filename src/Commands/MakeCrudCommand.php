@@ -28,6 +28,14 @@ class MakeCrudCommand extends Command
 
 
     /**
+     * The plural form of the model and its namespace.
+     *
+     * @var string
+     */
+    private string $plural_form;
+
+
+    /**
      * The name and signature of the console command.
      *
      * @var string
@@ -93,7 +101,16 @@ class MakeCrudCommand extends Command
 
         $this->model_class = $model_class;
         $this->model_name = array_pop($elements);
+
+        $this->plural_form = $this->setPluralForm();
     }
+
+    public function setPluralForm()
+    {
+        $word = $this->model_class;
+        return  Str::endsWith($word, 'y') ? Str::replace('y', 'ies', $word) : $word . 's';
+    }
+
 
     /**
      * Checks whether the user did not provide any option
@@ -157,7 +174,7 @@ class MakeCrudCommand extends Command
      */
     private function generateViews(): void
     {
-        $view_path = Str::lower(Str::replace('/', '.', $this->model_class) . 's');
+        $view_path = Str::lower(Str::replace('/', '.', $this->plural_form));
         $this->call('make:view', ['path' => $view_path, '-c' => true]);
     }
 
@@ -174,7 +191,7 @@ class MakeCrudCommand extends Command
         $is_api = $this->option('api');
 
         // Prepares the name of the resource (i.e: 'admin.posts')
-        $resource_name = Str::lower($this->model_class) . 's';
+        $resource_name = Str::lower($this->plural_form);
 
         // Prepares the name of the controller class with namespace
         $namespace = 'App\Http\Controllers\\' . Str::replace('/', '\\', $this->model_class);
