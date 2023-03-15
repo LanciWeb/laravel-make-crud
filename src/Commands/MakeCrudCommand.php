@@ -195,8 +195,11 @@ class MakeCrudCommand extends Command
         $resource_name = Str::lower($this->plural_form);
 
         // Prepares the name of the controller class with namespace
-        $namespace = 'App\Http\Controllers\\' . Str::replace('/', '\\', $this->model_class);
-        $controller_class = $namespace . 'Controller::class';
+
+        $namespace = 'App\Http\Controllers\\';
+        if ($is_api) $namespace .= 'Api\\';
+        $full_class = $namespace . Str::replace('/', '\\', $this->model_class);
+        $controller_class = $full_class . 'Controller::class';
 
         // Prepares the parameters for the Route::resource method
         $params = "'$resource_name', $controller_class";
@@ -216,9 +219,10 @@ class MakeCrudCommand extends Command
 
         // Prepare the path of the web routes file
         $routes_file = $is_api ? 'api' : 'web';
+        $route_method = $is_api ? 'apiResource' : 'resource';
 
         //  Writes on the web routes file
-        File::append(base_path("routes/$routes_file.php"), "\nRoute::resource($params);");
+        File::append(base_path("routes/$routes_file.php"), "\nRoute::$route_method($params);");
 
         // Outputs result
         $this->info("Routes registered successfully");
