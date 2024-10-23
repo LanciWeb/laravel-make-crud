@@ -1,6 +1,6 @@
 # Laravel MakeCrud
 
-Laravel MakeView is a Laravel Package that helps you create all the files you need for CRUD operations on your models.
+Laravel MakeCrud is a Laravel Package that helps you create all the files you need for CRUD operations on your models.
 
 ## Installation
 
